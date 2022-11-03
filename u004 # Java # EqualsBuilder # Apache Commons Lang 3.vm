@@ -1,0 +1,36 @@
+#parse("equalsHelper.vm")
+public boolean equals(##
+#if($settings.generateFinalParameters)
+    final ##
+#end
+Object $paramName) {
+    if (this == $paramName) {
+        return true;
+    }
+
+    #if($checkParameterWithInstanceof)
+        if (!($paramName instanceof $classname)) {
+            return false;
+        }
+    #else
+        if ($paramName == null || this.getClass() != ${paramName}.getClass()) {
+            return false;
+        }
+    #end
+
+    #if($settings.generateFinalLocals)
+        final ##
+    #end
+    #set($wildcards = "#generateWildcards()")
+    #set($classInstanceName = "that")
+    $classname$wildcards $classInstanceName = ($classname$wildcards) $paramName;
+
+    return new org.apache.commons.lang3.builder.EqualsBuilder()
+    #if($superHasEquals)
+        .appendSuper(super.equals($paramName))##
+    #end
+    #foreach($field in $fields)
+        .append(this.$field.accessor, ${classInstanceName}.$field.accessor)
+    #end
+    .isEquals();
+}

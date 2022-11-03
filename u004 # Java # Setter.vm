@@ -1,0 +1,11 @@
+#if($field.modifierStatic)
+    static ##
+#end
+void set$StringUtil.capitalize($field.name)($field.type $field.name) {
+#if(!$field.modifierStatic)
+    this.##
+#else
+    $classname.##
+#end
+$field.name = $field.name;
+}

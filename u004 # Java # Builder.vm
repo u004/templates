@@ -1,0 +1,17 @@
+public ##
+#if($field.modifierStatic)
+    static void ##
+#else
+    $classSignature ##
+#end
+set$StringUtil.capitalize($field.name)($field.type $field.name) {
+#if(!$field.modifierStatic)
+    this.## 
+#else
+    $classname.##
+#end
+$field.name = $field.name;
+#if(!$field.modifierStatic)
+    return this;
+#end
+}

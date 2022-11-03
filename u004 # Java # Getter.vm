@@ -1,0 +1,12 @@
+#if($field.modifierStatic)
+    static ##
+#end
+$field.type ##
+#if($field.recordComponent)
+    ${field.name}##
+#else
+    get$StringUtil.capitalize($field.name)##
+#end
+() {
+    return this.$field.name;
+}
